@@ -22,7 +22,7 @@ class HeartbeatSender:
         args,  # Put your own arguments here
     ) -> "tuple[True, HeartbeatSender] | tuple[False, None]":
         """
-        Falliable create (instantiation) method to create a HeartbeatSender object.
+        Falliable create (instantiation) method to create a HeartbeatSender object. 
         """
         pass  # Create a HeartbeatSender object
 
@@ -35,6 +35,7 @@ class HeartbeatSender:
         assert key is HeartbeatSender.__private_key, "Use create() method"
 
         # Do any intializiation here
+        self.connection - connection
 
     def run(
         self,
@@ -43,6 +44,7 @@ class HeartbeatSender:
         """
         Attempt to send a heartbeat message.
         """
+
         pass  # Send a heartbeat message
 
 

@@ -83,7 +83,7 @@ def main() -> int:
         ),
         input_queues=[],  # Note that input/output queues must be in the proper order
         output_queues=[countup_to_add_random_queue],
-        controller=controller,  # Worker controller
+        controller=controller,  # Worker 
         local_logger=main_logger,  # Main logger to log any failures during worker creation
     )
     if not result:
