@@ -39,6 +39,7 @@ def start_drone() -> None:
     Start the mocked drone.
     """
     subprocess.run(["python", "-m", MOCK_DRONE_MODULE], shell=True, check=False)
+    # Ensure the mock drone has time to start before the main process connects
 
 
 # =================================================================================================
@@ -50,8 +51,6 @@ def stop( controller  # Add any necessary arguments
     Stop the workers.
     """
     controller.request_exit()
-    controller.join_workers
-    pass  # Add logic to stop your worker
 
 
 # =================================================================================================
@@ -96,11 +95,12 @@ def main() -> int:
     # Create a worker controller for your worker
     controller = worker_controller.WorkerController()
     # Just set a timer to stop the worker after a while, since the worker infinite loops
-    threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (args,)).start()
+    threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (controller,)).start()
 
     heartbeat_sender_worker.heartbeat_sender_worker(
         # Place your own arguments 
-        connection = connection
+        connection = connection,
+        controller = controller
         
     )
     # =============================================================================================

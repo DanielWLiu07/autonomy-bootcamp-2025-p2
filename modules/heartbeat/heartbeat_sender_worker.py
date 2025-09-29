@@ -18,6 +18,8 @@ from ..common.modules.logger import logger
 # =================================================================================================
 def heartbeat_sender_worker(
     connection: mavutil.mavfile,
+    controller: worker_controller.WorkerController,
+    heartbeat_period,
     args,  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
@@ -47,8 +49,20 @@ def heartbeat_sender_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (heartbeat_sender.HeartbeatSender)
-    
+    heartbeat_sender = heartbeat_sender.HeartBeatSender.create(connection, local_logger)
     # Main loop: do work.
+
+    while not controller.is_exit_requested:
+        try:
+            working = heartbeat_sender.run()
+            if not working:
+                local_logger.error("Failed to send heartbeat")
+            else:
+                local_logger.info("Heartbeat sent", True)
+        except Exception as e:
+            local_logger.error(f"Failed to send heartbeat: {e}", True)
+        
+        time.sleep(heartbeat_period)
 
 
 # =================================================================================================
