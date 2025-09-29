@@ -44,12 +44,13 @@ def start_drone() -> None:
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
-def stop(
-    args,  # Add any necessary arguments
-) -> None:
+def stop( controller  # Add any necessary arguments
+         ) -> None:
     """
     Stop the workers.
     """
+    controller.request_exit()
+    controller.join_workers
     pass  # Add logic to stop your worker
 
 
