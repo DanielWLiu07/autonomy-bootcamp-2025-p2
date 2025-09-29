@@ -35,7 +35,7 @@ class HeartbeatSender:
         assert key is HeartbeatSender.__private_key, "Use create() method"
 
         # Do any intializiation here
-        self.connection - connection
+        self.connection = connection
 
     def run(
         self,
