@@ -1,0 +1,37 @@
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 46] Logger initialized
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 57] Yippe bro it creaated the sender
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 60] Starting heartbeat sending loop
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:15: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:15: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:15: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:16: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:16: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:16: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:17: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:17: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:17: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:18: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:18: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:18: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:19: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:19: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:19: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:20: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:20: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:20: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:21: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:21: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:21: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:22: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:22: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:22: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:23: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:23: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:23: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:24: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 63] Attempting to send heartbeat
+23:10:24: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender.py | run | 62] Heartbeat sent Wahoo
+23:10:24: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 71] Sleeping for 1 seconds
+23:10:25: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_sender_worker.py | heartbeat_sender_worker | 74] Heartbeat sending loop exited

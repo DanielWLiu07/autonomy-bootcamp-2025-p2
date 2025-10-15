@@ -1,0 +1,3 @@
+23:48:09: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
+23:48:09: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | main | 135] Connected!
+23:48:25: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | put_queue | 92] Put Queue

@@ -93,11 +93,12 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         0,
                         mavutil.mavlink.MAV_CMD_CONDITION_CHANGE_ALT,
                         0,
-                        self.target_z,
+                        self.target.z,
                         0, 
                         0, 
                         0, 
                         0, 
+                        0,
                         0,
                     )
                     messages.append(f"CHANGE ALTITUDE: {height_diff}")
@@ -124,6 +125,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
             yaw_diff_deg = math.degrees(yaw_diff)
 
             if abs(yaw_diff_deg) > args["angle_tolerance"]:
+                direction = -1 if yaw_diff_deg > 0 else 1
                 try:
                     self.connection.mav.command_long_send(
                         1,
@@ -132,7 +134,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         0,
                         yaw_diff_deg,
                         args["turning_speed"],
-                        1,
+                        direction,
                         1, 
                         0, 
                         0, 
