@@ -59,7 +59,7 @@ def stop(
     """
     Stop the workers.
     """
-    pass  # Add logic to stop your worker
+    args["controller"].request_exit()
 
 
 def read_queue(
@@ -69,16 +69,29 @@ def read_queue(
     """
     Read and print the output queue.
     """
-    pass  # Add logic to read from your worker's output queue and print it using the logger
-
+    output_queue = args["output_queue"]
+    while not args["stop_event"].is_set() or not output_queue.empty():
+        try:
+            msg = output_queue.get(timeout=0.1)
+            main_logger.info(msg)
+        except:
+            continue
+    main_logger.info("Read Queue")
 
 def put_queue(
     args,  # Add any necessary arguments
+    main_logger: logger.Logger,
 ) -> None:
     """
     Place mocked inputs into the input queue periodically with period TELEMETRY_PERIOD.
     """
-    pass  # Add logic to place the mocked inputs into your worker's input queue periodically
+    input_queue = args["input_queue"]
+    for data in args["path"]:
+        input_queue.put(data)
+        time.sleep(TELEMETRY_PERIOD)
+    main_logger.info("Put Queue")
+
+
 
 
 # =================================================================================================
@@ -127,10 +140,12 @@ def main() -> int:
     # =============================================================================================
     # Mock starting a worker, since cannot actually start a new process
     # Create a worker controller for your worker
-
+    controller = worker_controller.WorkerController()
     # Create a multiprocess manager for synchronized queues
-
+    manager = mp.Manager()
     # Create your queues
+    output_queue_wrapper = queue_proxy_wrapper.QueueProxyWrapper(manager)
+    input_queue_wrapper = queue_proxy_wrapper.QueueProxyWrapper(manager)
 
     # Test cases, DO NOT EDIT!
     path = [
@@ -216,17 +231,31 @@ def main() -> int:
         ),
     ]
 
+    args={
+        "input_queue": input_queue_wrapper.queue,
+        "output_queue": output_queue_wrapper.queue,
+        "controller": controller,
+        "telemetry_period": TELEMETRY_PERIOD,
+        "target": TARGET,
+        "height_tolerance": HEIGHT_TOLERANCE,
+        "z_speed": Z_SPEED,
+        "angle_tolerance": ANGLE_TOLERANCE,
+        "turning_speed": TURNING_SPEED,
+        "path": path,
+    }
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(TELEMETRY_PERIOD * len(path), stop, (args,)).start()
 
     # Put items into input queue
-    threading.Thread(target=put_queue, args=(args,)).start()
+    threading.Thread(target=put_queue, args=(args, main_logger)).start()
 
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(args, main_logger)).start()
 
     command_worker.command_worker(
-        # Place your own arguments here
+        connection,
+        TARGET,
+        args
     )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

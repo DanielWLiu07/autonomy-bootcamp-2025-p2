@@ -48,10 +48,20 @@ def command_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (command.Command)
-
+    result, command_obj = command.Command.create(connection, target, local_logger, args)
+    if not result:
+        local_logger.error("Failed to create Command")
+        return
+    
     # Main loop: do work.
-
-
-# =================================================================================================
-#                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
-# =================================================================================================
+    controller = args["controller"]
+    while not controller.is_exit_requested():
+        try:
+            telemetry_data = args["input_queue"].get(timeout=1)
+            messages = command_obj.run(telemetry_data, args)
+            for message in messages:
+                args["output_queue"].put(message)
+        except Exception as e:
+            local_logger.error(f"Error in worker loop: {e}")
+        except:
+            continue
