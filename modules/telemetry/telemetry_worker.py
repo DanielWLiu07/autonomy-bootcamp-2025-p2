@@ -7,8 +7,6 @@ import pathlib
 
 from pymavlink import mavutil
 
-from utilities.workers import queue_proxy_wrapper
-from utilities.workers import worker_controller
 from . import telemetry
 from ..common.modules.logger import logger
 
@@ -18,7 +16,7 @@ from ..common.modules.logger import logger
 # =================================================================================================
 def telemetry_worker(
     connection: mavutil.mavfile,
-    args,  # Place your own arguments here
+    args: dict,  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
     """

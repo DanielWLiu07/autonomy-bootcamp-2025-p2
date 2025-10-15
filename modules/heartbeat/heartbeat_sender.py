@@ -4,6 +4,8 @@ Heartbeat sending logic.
 
 from pymavlink import mavutil
 
+from ..common.modules.logger import logger
+
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
@@ -19,8 +21,8 @@ class HeartbeatSender:
     def create(
         cls,
         connection: mavutil.mavfile,
-        local_logger,
-        args,
+        local_logger: logger.Logger,
+        args: dict,
         # Put your own arguments here
     ) -> "tuple[True, HeartbeatSender] | tuple[False, None]":
         """
@@ -29,18 +31,17 @@ class HeartbeatSender:
         try:
             sender = cls(cls.__private_key, connection, local_logger, args)
             return True, sender
-        except Exception as e:
+        except (ConnectionError, ValueError, TypeError) as e:
             local_logger.error(f"Failed to create HeartbeatSender: {e}", True)
             return False, None
-        pass  # Create a HeartbeatSender object
 
     def __init__(
         self,
         key: object,
         connection: mavutil.mavfile,
-        local_logger,
-        args,  # Put your own arguments here
-    ):
+        local_logger: logger.Logger,
+        args: dict,  # pylint: disable=unused-argument
+    ) -> None:
         assert key is HeartbeatSender.__private_key, "Use create() method"
 
         # Do any intializiation here
@@ -49,8 +50,8 @@ class HeartbeatSender:
 
     def run(
         self,
-        args,  # Put your own arguments here
-    ):
+        _args: dict,  # Put your own arguments here
+    ) -> bool:
         """
         Attempt to send a heartbeat message.
         """
@@ -58,9 +59,9 @@ class HeartbeatSender:
             self.connection.mav.heartbeat_send(
                 mavutil.mavlink.MAV_TYPE_GCS, mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0
             )
-            self.logger.info(f"Heartbeat sent Wahoo")
+            self.logger.info("Heartbeat sent Wahoo")
             return True
-        except Exception as e:
+        except (ConnectionError, OSError) as e:
             self.logger.error(f"Failed to send heartbeat: {e}")
             return False
 

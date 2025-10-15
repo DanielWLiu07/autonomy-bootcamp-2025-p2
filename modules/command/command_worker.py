@@ -7,8 +7,6 @@ import pathlib
 
 from pymavlink import mavutil
 
-from utilities.workers import queue_proxy_wrapper
-from utilities.workers import worker_controller
 from . import command
 from ..common.modules.logger import logger
 
@@ -19,7 +17,7 @@ from ..common.modules.logger import logger
 def command_worker(
     connection: mavutil.mavfile,
     target: command.Position,
-    args,  # Place your own arguments here
+    args: dict,  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
     """
@@ -61,7 +59,7 @@ def command_worker(
             messages = command_obj.run(telemetry_data, args)
             for message in messages:
                 args["output_queue"].put(message)
-        except Exception as e:
+        except (ConnectionError, OSError, ValueError, TimeoutError) as e:
             local_logger.error(f"Error in worker loop: {e}")
-        except:
+        except KeyboardInterrupt:
             continue

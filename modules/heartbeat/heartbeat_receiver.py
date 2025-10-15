@@ -21,16 +21,16 @@ class HeartbeatReceiver:
     def create(
         cls,
         connection: mavutil.mavfile,
-        local_logger,
-        args,  # Put your own arguments here
-    ):
+        local_logger: logger.Logger,
+        args: dict,  # Put your own arguments here
+    ) -> tuple[bool, "HeartbeatReceiver" | None]:
         """
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
         try:
             receiver = cls(cls.__private_key, connection, local_logger, args)
             return True, receiver
-        except Exception as e:
+        except (ConnectionError, ValueError, TypeError) as e:
             local_logger.error(f"Failed to create HeartbeatReceiver: {e}", True)
             return False, None
 
@@ -38,9 +38,9 @@ class HeartbeatReceiver:
         self,
         key: object,
         connection: mavutil.mavfile,
-        local_logger,
-        args,  # Put your own arguments here
-    ):
+        local_logger: logger.Logger,
+        args: dict,  # pylint: disable=unused-argument
+    ) -> None:
         assert key is HeartbeatReceiver.__private_key, "Use create() method"
 
         # Do any intializiation here
@@ -50,8 +50,8 @@ class HeartbeatReceiver:
 
     def run(
         self,
-        args,  # Put your own arguments here
-    ):
+        args: dict,  # Put your own arguments here
+    ) -> bool:
         """
         Attempt to recieve a heartbeat message.
         If disconnected for over a threshold number of periods,
@@ -80,7 +80,7 @@ class HeartbeatReceiver:
             args["output_queue"].put(state)
 
             return self.consecutive_failures <= args.get("disconnect_threshold", 5)
-        except Exception as e:
+        except (ConnectionError, TimeoutError) as e:
             self.logger.error(f"Error receiving heartbeat: {e}")
             return False
 

@@ -54,7 +54,7 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    args,  # Add any necessary arguments
+    args: dict,  # Add any necessary arguments
 ) -> None:
     """
     Stop the workers.
@@ -63,7 +63,7 @@ def stop(
 
 
 def read_queue(
-    args,  # Add any necessary arguments
+    args: dict,  # Add any necessary arguments
     main_logger: logger.Logger,
 ) -> None:
     """
@@ -74,13 +74,13 @@ def read_queue(
         try:
             msg = output_queue.get(timeout=0.1)
             main_logger.info(msg)
-        except:
+        except TimeoutError:
             continue
     main_logger.info("Read Queue")
 
 
 def put_queue(
-    args,  # Add any necessary arguments
+    args: dict,  # Add any necessary arguments
     main_logger: logger.Logger,
 ) -> None:
     """

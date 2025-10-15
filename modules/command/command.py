@@ -38,8 +38,8 @@ class Command:  # pylint: disable=too-many-instance-attributes
         connection: mavutil.mavfile,
         target: Position,
         local_logger: logger.Logger,
-        args,  # Put your own arguments here
-    ):
+        args: dict,  # Put your own arguments here
+    ) -> tuple[bool, "Command"]:
         """
         Falliable create (instantiation) method to create a Command object.
         """
@@ -51,7 +51,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         connection: mavutil.mavfile,
         target: Position,
         local_logger: logger.Logger,
-        args,  # Put your own arguments here
+        args: dict,  # Put your own arguments here
     ) -> None:
         assert key is Command.__private_key, "Use create() method"
 
@@ -65,8 +65,8 @@ class Command:  # pylint: disable=too-many-instance-attributes
     def run(
         self,
         telemetry_data: telemetry.TelemetryData,
-        args,  # Put your own arguments here
-    ):
+        args: dict,  # Put your own arguments here
+    ) -> list[str]:
         """
         Make a decision based on received telemetry data.
         """
@@ -103,7 +103,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                     )
                     messages.append(f"CHANGE ALTITUDE: {height_diff}")
                     self.logger.info(f"CHANGE ALTITUDE: {height_diff}")
-                except Exception as e:
+                except (ConnectionError, OSError, ValueError) as e:
                     self.logger.error(f"Failed to send altitude command: {e}")
 
             dx = self.target.x - telemetry_data.x
@@ -143,11 +143,11 @@ class Command:  # pylint: disable=too-many-instance-attributes
                     )
                     messages.append(f"CHANGE YAW: {yaw_diff_deg}")
                     self.logger.info(f"CHANGE YAW: {yaw_diff_deg}")
-                except Exception as e:
+                except (ConnectionError, OSError, ValueError) as e:
                     self.logger.error(f"Failed to send yaw command: {e}")
 
             return messages
 
-        except Exception as e:
+        except (ConnectionError, OSError, ValueError, TypeError) as e:
             self.logger.error(f"Error in command decision: {e}")
             return []
