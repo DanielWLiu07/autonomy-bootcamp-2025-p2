@@ -57,7 +57,6 @@ def heartbeat_sender_worker(
         return
     local_logger.info("Yippe bro it creaated the sender")
     # Main loop: do work.
-
     local_logger.info("Starting heartbeat sending loop")
 
     while not controller.is_exit_requested():

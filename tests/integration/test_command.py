@@ -132,7 +132,6 @@ def main() -> int:
         0,
     )
     main_logger.info("Connected!")
-    # pylint: enable=duplicate-code
 
     # =============================================================================================
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓

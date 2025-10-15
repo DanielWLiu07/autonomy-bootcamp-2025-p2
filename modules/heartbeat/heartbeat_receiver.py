@@ -67,16 +67,12 @@ class HeartbeatReceiver:
                 self.logger.warning(
                     f"No heartbeat received, consecutive failures: {self.consecutive_failures}"
                 )
-
-            # Determine current state
             threshold = args.get("disconnect_threshold", 5)
             if self.consecutive_failures < threshold:
                 state = "Connected"
             else:
                 state = "Disconnected"
                 self.logger.error("Connection considered disconnected")
-
-            # Report state every second
             args["output_queue"].put(state)
 
             return self.consecutive_failures <= args.get("disconnect_threshold", 5)

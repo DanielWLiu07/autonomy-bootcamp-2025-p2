@@ -49,7 +49,6 @@ def main() -> int:
         attitude_count = -1
         position_count = -1
         for i in range(NUM_TRIALS):
-            # A TOTAL_PERIOD second long loop:
             start = time.time()
             now = start
             while now - start < TOTAL_PERIOD:
@@ -68,7 +67,6 @@ def main() -> int:
                             0,
                             YAW_SPEED,
                         )
-                    # Not required, sends shouldn't raise exceptions
                     except:  # pylint: disable=bare-except
                         local_logger.error("Drone: Could not send attitude")
                         return -1

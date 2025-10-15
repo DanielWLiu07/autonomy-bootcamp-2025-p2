@@ -222,12 +222,10 @@ def main() -> int:
     start_time = time.time()
     try:
         while time.time() - start_time < MAIN_LOOP_DURATION:
-            # Check if connection is still alive
             if not connection.target_system:
                 main_logger.warning("Drone disconnected")
                 break
 
-            # Process heartbeat reports
             try:
                 while True:
                     heartbeat_data = heartbeat_report_queue.queue.get_nowait()
@@ -235,7 +233,6 @@ def main() -> int:
             except queue.Empty:
                 pass
 
-            # Process telemetry reports
             try:
                 while True:
                     telemetry_data = telemetry_report_queue.queue.get_nowait()
@@ -243,7 +240,6 @@ def main() -> int:
             except queue.Empty:
                 pass
 
-            # Process command responses
             try:
                 while True:
                     command_response = command_output_queue.queue.get_nowait()
