@@ -46,7 +46,6 @@ class HeartbeatSender:
         # Do any intializiation here
         self.connection = connection
         self.logger = local_logger
-
     def run(
         self,
         args,  # Put your own arguments here
@@ -56,15 +55,15 @@ class HeartbeatSender:
         """
         try:
             self.connection.mav.heartbeat_send(
-                mavutil.mavlink.MAV_TYPE_ONBOARD_CONTROLLER,
+                mavutil.mavlink.MAV_TYPE_GCS,
                 mavutil.mavlink.MAV_AUTOPILOT_INVALID,
                 0, 0, 0
             )
+            self.logger.info(f"Heartbeat sent Wahoo")
             return True
         except Exception as e:
             self.logger.error(f"Failed to send heartbeat: {e}")
             return False
-        pass  # Send a heartbeat message
 
 
 # =================================================================================================
