@@ -78,6 +78,7 @@ def read_queue(
             continue
     main_logger.info("Read Queue")
 
+
 def put_queue(
     args,  # Add any necessary arguments
     main_logger: logger.Logger,
@@ -90,8 +91,6 @@ def put_queue(
         input_queue.put(data)
         time.sleep(TELEMETRY_PERIOD)
     main_logger.info("Put Queue")
-
-
 
 
 # =================================================================================================
@@ -231,7 +230,7 @@ def main() -> int:
         ),
     ]
 
-    args={
+    args = {
         "input_queue": input_queue_wrapper.queue,
         "output_queue": output_queue_wrapper.queue,
         "controller": controller,
@@ -252,11 +251,7 @@ def main() -> int:
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(args, main_logger)).start()
 
-    command_worker.command_worker(
-        connection,
-        TARGET,
-        args
-    )
+    command_worker.command_worker(connection, TARGET, args)
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

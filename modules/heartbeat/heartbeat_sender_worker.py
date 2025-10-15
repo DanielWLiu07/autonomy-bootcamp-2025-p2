@@ -49,7 +49,9 @@ def heartbeat_sender_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (heartbeat_sender.HeartbeatSender)
-    result, heartbeat_sender_obj = heartbeat_sender.HeartbeatSender.create(connection, local_logger, args)
+    result, heartbeat_sender_obj = heartbeat_sender.HeartbeatSender.create(
+        connection, local_logger, args
+    )
     if not result:
         local_logger.error("Failed to create HeartbeatSender")
         return
@@ -58,7 +60,7 @@ def heartbeat_sender_worker(
     # Main loop: do work.
 
     local_logger.info("Starting heartbeat sending loop")
-    
+
     while not controller.is_exit_requested():
         local_logger.info("Attempting to send heartbeat")
         try:
@@ -67,7 +69,7 @@ def heartbeat_sender_worker(
                 local_logger.error("Failed to send heartbeat")
         except Exception as e:
             local_logger.error(f"Failed to send heartbeat: {e}", True)
-        
+
         local_logger.info(f"Sleeping for {heartbeat_period} seconds")
         time.sleep(heartbeat_period)
 

@@ -52,11 +52,12 @@ def telemetry_worker(
         local_logger.error("Failed to create Telemetry")
         return
     # Main loop: do work.
-    controller=args["controller"]
+    controller = args["controller"]
     while not controller.is_exit_requested():
         telemetry_data = telemetry_obj.run(args)
         if telemetry_data:
             args["output_queue"].put(telemetry_data)
+
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

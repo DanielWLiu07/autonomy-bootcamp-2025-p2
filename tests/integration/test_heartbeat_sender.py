@@ -45,8 +45,7 @@ def start_drone() -> None:
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
-def stop( controller  # Add any necessary arguments
-         ) -> None:
+def stop(controller) -> None:  # Add any necessary arguments
     """
     Stop the workers.
     """
@@ -98,12 +97,11 @@ def main() -> int:
     threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (controller,)).start()
 
     heartbeat_sender_worker.heartbeat_sender_worker(
-        # Place your own arguments 
-        connection = connection,
-        controller = controller,
-        heartbeat_period = HEARTBEAT_PERIOD,
-        args = {}
-        
+        # Place your own arguments
+        connection=connection,
+        controller=controller,
+        heartbeat_period=HEARTBEAT_PERIOD,
+        args={},
     )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

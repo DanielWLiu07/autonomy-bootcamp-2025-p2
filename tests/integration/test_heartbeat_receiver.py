@@ -49,8 +49,8 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-          args,  # Add any necessary arguments
-          ) -> None:
+    args,  # Add any necessary arguments
+) -> None:
     """
     Stop the workers.
     """
@@ -70,6 +70,7 @@ def read_queue(
             main_logger.info(f"Worker output: {message}")
         except:
             continue
+
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -127,7 +128,7 @@ def main() -> int:
         "output_queue": output_queue_wrapper.queue,
         "controller": controller,
         "heartbeat_period": HEARTBEAT_PERIOD,
-        "disconnect_threshold": DISCONNECT_THRESHOLD
+        "disconnect_threshold": DISCONNECT_THRESHOLD,
     }
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
@@ -143,7 +144,7 @@ def main() -> int:
     heartbeat_receiver_worker.heartbeat_receiver_worker(
         # Place your own arguments
         connection=connection,
-        args=args
+        args=args,
     )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

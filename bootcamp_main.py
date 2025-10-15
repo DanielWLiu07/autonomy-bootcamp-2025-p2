@@ -115,7 +115,7 @@ def main() -> int:
     assert heartbeat_sender_properties is not None
     # Heartbeat receiver
     result, heartbeat_receiver_properties = worker_manager.WorkerProperties.create(
-        count= HEARTBEAT_RECEIVER_COUNT,
+        count=HEARTBEAT_RECEIVER_COUNT,
         target=heartbeat_receiver_worker.heartbeat_receiver_worker,
         work_arguments=(connection, HEARTBEAT_PERIOD),
         input_queues=[],
@@ -147,7 +147,16 @@ def main() -> int:
     result, command_properties = worker_manager.WorkerProperties.create(
         count=COMMAND_COUNT,
         target=command_worker.command_worker,
-        work_arguments=(connection, TARGET_POSITION, {"height_tolerance": HEIGHT_TOLERANCE, "z_speed": Z_SPEED, "angle_tolerance": ANGLE_TOLERANCE, "turning_speed": TURNING_SPEED}),
+        work_arguments=(
+            connection,
+            TARGET_POSITION,
+            {
+                "height_tolerance": HEIGHT_TOLERANCE,
+                "z_speed": Z_SPEED,
+                "angle_tolerance": ANGLE_TOLERANCE,
+                "turning_speed": TURNING_SPEED,
+            },
+        ),
         input_queues=[command_request_queue],
         output_queues=[command_output_queue],
         controller=controller,
@@ -158,7 +167,7 @@ def main() -> int:
         return -1
 
     assert command_properties is not None
-    
+
     # Create the workers (processes) and obtain their managers
     worker_managers = []
 
@@ -184,10 +193,9 @@ def main() -> int:
 
     assert heartbeat_receiver_manager is not None
     worker_managers.append(heartbeat_receiver_manager)
-    
+
     result, telemetry_manager = worker_manager.WorkerManager.create(
-        worker_properties=telemetry_properties, 
-        local_logger=main_logger
+        worker_properties=telemetry_properties, local_logger=main_logger
     )
     if not result:
         main_logger.error("Failed to create telemetry manager")
@@ -196,15 +204,13 @@ def main() -> int:
     worker_managers.append(telemetry_manager)
 
     result, command_manager = worker_manager.WorkerManager.create(
-        worker_properties=command_properties, 
-        local_logger=main_logger
+        worker_properties=command_properties, local_logger=main_logger
     )
     if not result:
         main_logger.error("Failed to create command manager")
         return -1
     assert command_manager is not None
     worker_managers.append(command_manager)
-
 
     # Start worker processes
     for manager in worker_managers:

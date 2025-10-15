@@ -52,7 +52,7 @@ def command_worker(
     if not result:
         local_logger.error("Failed to create Command")
         return
-    
+
     # Main loop: do work.
     controller = args["controller"]
     while not controller.is_exit_requested():

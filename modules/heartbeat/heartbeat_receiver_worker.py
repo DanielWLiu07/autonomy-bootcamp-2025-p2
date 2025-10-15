@@ -47,7 +47,9 @@ def heartbeat_receiver_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
-    result, heartbeat_receiver_obj = heartbeat_receiver.HeartbeatReceiver.create(connection, local_logger, args)
+    result, heartbeat_receiver_obj = heartbeat_receiver.HeartbeatReceiver.create(
+        connection, local_logger, args
+    )
     if not result:
         local_logger.error("Failed to create HeartbeatReceiver")
         return
@@ -64,18 +66,13 @@ def heartbeat_receiver_worker(
                 local_logger.error("Failed to receive heartbeat")
         except Exception as e:
             local_logger.error(f"Failed to receive heartbeat: {e}", True)
-        
+
         local_logger.info(f"Sleeping for {heartbeat_period} seconds")
         import time
+
         time.sleep(heartbeat_period)
 
     local_logger.info("Heartbeat receiving loop exited")
-
-
-
-
-
-
 
 
 # =================================================================================================

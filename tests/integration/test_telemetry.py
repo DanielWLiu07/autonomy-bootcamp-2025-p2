@@ -52,8 +52,9 @@ def stop(
     """
     Stop the workers.
     """
-    controller=args["controller"]
+    controller = args["controller"]
     controller.request_exit()
+
 
 def read_queue(
     args,  # Add any necessary arguments
@@ -122,7 +123,7 @@ def main() -> int:
     # Create your queues
     output_queue_wrapper = queue_proxy_wrapper.QueueProxyWrapper(manager)
 
-    args={
+    args = {
         "output_queue": output_queue_wrapper.queue,
         "controller": controller,
         "telemetry_period": TELEMETRY_PERIOD,
@@ -133,10 +134,7 @@ def main() -> int:
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(args, main_logger)).start()
 
-    telemetry_worker.telemetry_worker(
-        connection=connection,
-        args=args
-    )
+    telemetry_worker.telemetry_worker(connection=connection, args=args)
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

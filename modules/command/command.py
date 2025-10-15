@@ -94,10 +94,10 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         mavutil.mavlink.MAV_CMD_CONDITION_CHANGE_ALT,
                         0,
                         self.target.z,
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                        0,
+                        0,
+                        0,
+                        0,
                         0,
                         0,
                     )
@@ -135,11 +135,11 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         yaw_diff_deg,
                         args["turning_speed"],
                         direction,
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
                     )
                     messages.append(f"CHANGE YAW: {yaw_diff_deg}")
                     self.logger.info(f"CHANGE YAW: {yaw_diff_deg}")

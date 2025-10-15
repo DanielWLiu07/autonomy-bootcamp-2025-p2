@@ -113,12 +113,14 @@ class Telemetry:
 
         while time.time() - start_time < 1.0:
             try:
-                msg = self.connection.recv_match(type=['ATTITUDE', 'LOCAL_POSITION_NED'], timeout=0.1)
+                msg = self.connection.recv_match(
+                    type=["ATTITUDE", "LOCAL_POSITION_NED"], timeout=0.1
+                )
                 if msg:
-                    if msg.get_type() == 'ATTITUDE':
+                    if msg.get_type() == "ATTITUDE":
                         last_attitude = msg
                         self.logger.info("Received ATTITUDE message")
-                    elif msg.get_type() == 'LOCAL_POSITION_NED':
+                    elif msg.get_type() == "LOCAL_POSITION_NED":
                         last_position = msg
                         self.logger.info("Received LOCAL_POSITION_NED message")
 
@@ -145,7 +147,9 @@ class Telemetry:
                 self.logger.error(f"Error receiving message: {e}")
                 return None
 
-        self.logger.error("Timeout: Did not receive both ATTITUDE and LOCAL_POSITION_NED within 1 second")
+        self.logger.error(
+            "Timeout: Did not receive both ATTITUDE and LOCAL_POSITION_NED within 1 second"
+        )
         return None
 
 
