@@ -76,24 +76,26 @@ class Telemetry:
     def create(
         cls,
         connection: mavutil.mavfile,
-        args,  # Put your own arguments here
         local_logger: logger.Logger,
+        args,  # Put your own arguments here
     ):
         """
         Falliable create (instantiation) method to create a Telemetry object.
         """
-        pass  # Create a Telemetry object
+        return True, cls(cls.__private_key, connection, local_logger, args)
 
     def __init__(
         self,
         key: object,
         connection: mavutil.mavfile,
-        args,  # Put your own arguments here
         local_logger: logger.Logger,
+        args,  # Put your own arguments here
     ) -> None:
         assert key is Telemetry.__private_key, "Use create() method"
 
-        # Do any intializiation here
+        self.connection = connection
+        self.logger = local_logger
+        self.args = args
 
     def run(
         self,
@@ -103,10 +105,48 @@ class Telemetry:
         Receive LOCAL_POSITION_NED and ATTITUDE messages from the drone,
         combining them together to form a single TelemetryData object.
         """
-        # Read MAVLink message LOCAL_POSITION_NED (32)
-        # Read MAVLink message ATTITUDE (30)
-        # Return the most recent of both, and use the most recent message's timestamp
-        pass
+        import time
+
+        last_attitude = None
+        last_position = None
+        start_time = time.time()
+
+        while time.time() - start_time < 1.0:
+            try:
+                msg = self.connection.recv_match(type=['ATTITUDE', 'LOCAL_POSITION_NED'], timeout=0.1)
+                if msg:
+                    if msg.get_type() == 'ATTITUDE':
+                        last_attitude = msg
+                        self.logger.info("Received ATTITUDE message")
+                    elif msg.get_type() == 'LOCAL_POSITION_NED':
+                        last_position = msg
+                        self.logger.info("Received LOCAL_POSITION_NED message")
+
+                    if last_attitude and last_position:
+                        time_boot = max(last_attitude.time_boot_ms, last_position.time_boot_ms)
+                        data = TelemetryData(
+                            time_since_boot=time_boot,
+                            x=last_position.x,
+                            y=last_position.y,
+                            z=last_position.z,
+                            x_velocity=last_position.vx,
+                            y_velocity=last_position.vy,
+                            z_velocity=last_position.vz,
+                            roll=last_attitude.roll,
+                            pitch=last_attitude.pitch,
+                            yaw=last_attitude.yaw,
+                            roll_speed=last_attitude.rollspeed,
+                            pitch_speed=last_attitude.pitchspeed,
+                            yaw_speed=last_attitude.yawspeed,
+                        )
+                        self.logger.info(f"Returning TelemetryData: {data}")
+                        return data
+            except Exception as e:
+                self.logger.error(f"Error receiving message: {e}")
+                return None
+
+        self.logger.error("Timeout: Did not receive both ATTITUDE and LOCAL_POSITION_NED within 1 second")
+        return None
 
 
 # =================================================================================================

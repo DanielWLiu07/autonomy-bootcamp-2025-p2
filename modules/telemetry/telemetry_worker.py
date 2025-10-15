@@ -47,9 +47,16 @@ def telemetry_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (telemetry.Telemetry)
-
+    result, telemetry_obj = telemetry.Telemetry.create(connection, local_logger, args)
+    if not result:
+        local_logger.error("Failed to create Telemetry")
+        return
     # Main loop: do work.
-
+    controller=args["controller"]
+    while not controller.is_exit_requested():
+        telemetry_data = telemetry_obj.run(args)
+        if telemetry_data:
+            args["output_queue"].put(telemetry_data)
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
