@@ -4,6 +4,7 @@ Heartbeat receiving logic.
 
 from pymavlink import mavutil
 
+from utilities.workers import queue_proxy_wrapper
 from ..common.modules.logger import logger
 
 
@@ -49,7 +50,7 @@ class HeartbeatReceiver:
 
     def run(
         self,
-        output_queue,  # Put your own arguments here
+        output_queue: queue_proxy_wrapper.QueueProxyWrapper,  # Put your own arguments here
         disconnect_threshold: int = 5,
     ) -> bool:
         """

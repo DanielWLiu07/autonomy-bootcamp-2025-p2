@@ -8,10 +8,11 @@ import queue
 
 from pymavlink import mavutil
 
-from . import command
-from ..common.modules.logger import logger
 from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
+
+from . import command
+from ..common.modules.logger import logger
 
 
 # =================================================================================================
@@ -31,8 +32,6 @@ def command_worker(
 ) -> None:
     """
     Worker process.
-
-    args... describe what the arguments are
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -55,7 +54,9 @@ def command_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (command.Command)
-    result, command_obj = command.Command.create(connection, target, local_logger, height_tolerance, z_speed, angle_tolerance, turning_speed)
+    result, command_obj = command.Command.create(
+        connection, target, local_logger, height_tolerance, z_speed, angle_tolerance, turning_speed
+    )
     if not result:
         local_logger.error("Failed to create Command")
         return

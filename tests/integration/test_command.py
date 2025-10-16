@@ -232,28 +232,30 @@ def main() -> int:
         ),
     ]
 
-    args = {
-        "input_queue": input_queue_wrapper.queue,
-        "output_queue": output_queue_wrapper.queue,
-        "controller": controller,
-        "telemetry_period": TELEMETRY_PERIOD,
-        "target": TARGET,
-        "height_tolerance": HEIGHT_TOLERANCE,
-        "z_speed": Z_SPEED,
-        "angle_tolerance": ANGLE_TOLERANCE,
-        "turning_speed": TURNING_SPEED,
-        "path": path,
-    }
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(TELEMETRY_PERIOD * len(path), stop, (controller,)).start()
 
     # Put items into input queue
-    threading.Thread(target=put_queue, args=(input_queue_wrapper, path, TELEMETRY_PERIOD, main_logger)).start()
+    threading.Thread(
+        target=put_queue, args=(input_queue_wrapper, path, TELEMETRY_PERIOD, main_logger)
+    ).start()
 
     # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(output_queue_wrapper, controller, main_logger)).start()
+    threading.Thread(
+        target=read_queue, args=(output_queue_wrapper, controller, main_logger)
+    ).start()
 
-    command_worker.command_worker(connection, TARGET, HEIGHT_TOLERANCE, Z_SPEED, ANGLE_TOLERANCE, TURNING_SPEED, input_queue_wrapper, output_queue_wrapper, controller)
+    command_worker.command_worker(
+        connection,
+        TARGET,
+        HEIGHT_TOLERANCE,
+        Z_SPEED,
+        ANGLE_TOLERANCE,
+        TURNING_SPEED,
+        input_queue_wrapper,
+        output_queue_wrapper,
+        controller,
+    )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

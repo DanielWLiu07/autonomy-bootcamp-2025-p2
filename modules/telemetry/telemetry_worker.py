@@ -7,10 +7,11 @@ import pathlib
 
 from pymavlink import mavutil
 
-from . import telemetry
-from ..common.modules.logger import logger
 from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
+
+from . import telemetry
+from ..common.modules.logger import logger
 
 
 # =================================================================================================
@@ -18,15 +19,12 @@ from utilities.workers import worker_controller
 # =================================================================================================
 def telemetry_worker(
     connection: mavutil.mavfile,
-    args: dict,  # Place your own arguments here
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
     # Add other necessary worker arguments here
 ) -> None:
     """
     Worker process.
-
-    args... describe what the arguments are
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

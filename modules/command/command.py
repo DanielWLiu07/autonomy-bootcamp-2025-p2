@@ -46,7 +46,16 @@ class Command:  # pylint: disable=too-many-instance-attributes
         """
         Falliable create (instantiation) method to create a Command object.
         """
-        return True, cls(cls.__private_key, connection, target, local_logger, height_tolerance, z_speed, angle_tolerance, turning_speed)
+        return True, cls(
+            cls.__private_key,
+            connection,
+            target,
+            local_logger,
+            height_tolerance,
+            z_speed,
+            angle_tolerance,
+            turning_speed,
+        )
 
     def __init__(
         self,

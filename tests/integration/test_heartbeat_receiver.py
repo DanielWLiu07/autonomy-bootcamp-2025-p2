@@ -126,13 +126,6 @@ def main() -> int:
     # Create your queues
     output_queue_wrapper = queue_proxy_wrapper.QueueProxyWrapper(manager)
 
-    args = {
-        "output_queue": output_queue_wrapper.queue,
-        "controller": controller,
-        "heartbeat_period": HEARTBEAT_PERIOD,
-        "disconnect_threshold": DISCONNECT_THRESHOLD,
-    }
-
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(
         HEARTBEAT_PERIOD * (NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 2),
@@ -141,7 +134,9 @@ def main() -> int:
     ).start()
 
     # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(output_queue_wrapper, controller, main_logger)).start()
+    threading.Thread(
+        target=read_queue, args=(output_queue_wrapper, controller, main_logger)
+    ).start()
 
     heartbeat_receiver_worker.heartbeat_receiver_worker(
         connection=connection,
