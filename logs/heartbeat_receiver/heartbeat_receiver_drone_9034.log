@@ -1,0 +1,13 @@
+13:57:00: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | main | 42] Logger initialized
+13:57:00: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:01: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:02: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:03: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:04: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:13: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:15: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:16: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:17: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:19: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | send_heartbeats | 59] Drone: Sent a heartbeat
+13:57:20: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/heartbeat_receiver_drone.py | main | 79] Passesd!

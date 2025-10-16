@@ -97,11 +97,10 @@ def main() -> int:
     threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (controller,)).start()
 
     heartbeat_sender_worker.heartbeat_sender_worker(
-        # Place your own arguments
         connection=connection,
-        controller=controller,
         heartbeat_period=HEARTBEAT_PERIOD,
         args={},
+        controller=controller,
     )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

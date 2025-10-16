@@ -38,12 +38,15 @@ class Command:  # pylint: disable=too-many-instance-attributes
         connection: mavutil.mavfile,
         target: Position,
         local_logger: logger.Logger,
-        args: dict,  # Put your own arguments here
+        height_tolerance: float,
+        z_speed: float,
+        angle_tolerance: float,
+        turning_speed: float,
     ) -> tuple[bool, "Command"]:
         """
         Falliable create (instantiation) method to create a Command object.
         """
-        return True, cls(cls.__private_key, connection, target, local_logger, args)
+        return True, cls(cls.__private_key, connection, target, local_logger, height_tolerance, z_speed, angle_tolerance, turning_speed)
 
     def __init__(
         self,
@@ -51,22 +54,27 @@ class Command:  # pylint: disable=too-many-instance-attributes
         connection: mavutil.mavfile,
         target: Position,
         local_logger: logger.Logger,
-        args: dict,  # Put your own arguments here
+        height_tolerance: float,
+        z_speed: float,
+        angle_tolerance: float,
+        turning_speed: float,
     ) -> None:
         assert key is Command.__private_key, "Use create() method"
 
         self.connection = connection
         self.target = target
         self.logger = local_logger
-        self.args = args
+        self.height_tolerance = height_tolerance
+        self.z_speed = z_speed
+        self.angle_tolerance = angle_tolerance
+        self.turning_speed = turning_speed
         self.velocity_sum = [0.0, 0.0, 0.0]
         self.data_count = 0
 
     def run(
         self,
         telemetry_data: telemetry.TelemetryData,
-        args: dict,  # Put your own arguments here
-    ) -> list[str]:
+    ) -> str:
         """
         Make a decision based on received telemetry data.
         """
@@ -83,26 +91,24 @@ class Command:  # pylint: disable=too-many-instance-attributes
             ]
             self.logger.info(f"Average velocity: {avg_velocity}")
 
-            messages = []
-
             height_diff = self.target.z - telemetry_data.z
-            if abs(height_diff) > args["height_tolerance"]:
+            if abs(height_diff) > self.height_tolerance:
                 try:
                     self.connection.mav.command_long_send(
                         1,
                         0,
                         mavutil.mavlink.MAV_CMD_CONDITION_CHANGE_ALT,
                         0,
+                        self.z_speed,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         self.target.z,
                         0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
                     )
-                    messages.append(f"CHANGE ALTITUDE: {height_diff}")
-                    self.logger.info(f"CHANGE ALTITUDE: {height_diff}")
+                    return f"CHANGE_ALTITUDE: {height_diff:.2f}"
                 except (ConnectionError, OSError, ValueError) as e:
                     self.logger.error(f"Failed to send altitude command: {e}")
 
@@ -124,7 +130,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
 
             yaw_diff_deg = math.degrees(yaw_diff)
 
-            if abs(yaw_diff_deg) > args["angle_tolerance"]:
+            if abs(yaw_diff_deg) > self.angle_tolerance:
                 direction = -1 if yaw_diff_deg > 0 else 1
                 try:
                     self.connection.mav.command_long_send(
@@ -133,7 +139,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         mavutil.mavlink.MAV_CMD_CONDITION_YAW,
                         0,
                         yaw_diff_deg,
-                        args["turning_speed"],
+                        self.turning_speed,
                         direction,
                         1,
                         0,
@@ -141,13 +147,12 @@ class Command:  # pylint: disable=too-many-instance-attributes
                         0,
                         0,
                     )
-                    messages.append(f"CHANGE YAW: {yaw_diff_deg}")
-                    self.logger.info(f"CHANGE YAW: {yaw_diff_deg}")
+                    return f"CHANGE_YAW: {yaw_diff_deg:.2f}"
                 except (ConnectionError, OSError, ValueError) as e:
                     self.logger.error(f"Failed to send yaw command: {e}")
 
-            return messages
+            return ""
 
         except (ConnectionError, OSError, ValueError, TypeError) as e:
             self.logger.error(f"Error in command decision: {e}")
-            return []
+            return ""

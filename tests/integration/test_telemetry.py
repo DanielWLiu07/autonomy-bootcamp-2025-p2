@@ -3,6 +3,7 @@ Test the telemetry worker with a mocked drone.
 """
 
 import multiprocessing as mp
+import queue
 import subprocess
 import threading
 
@@ -47,27 +48,27 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    args: dict,  # Add any necessary arguments
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Stop the workers.
     """
-    controller = args["controller"]
     controller.request_exit()
 
 
 def read_queue(
-    args: dict,  # Add any necessary arguments
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
     main_logger: logger.Logger,
 ) -> None:
     """
     Read and print the output queue.
     """
-    while True:
+    while not controller.is_exit_requested():
         try:
-            message = args["output_queue"].get(timeout=1)
+            message = output_queue.queue.get(timeout=1)
             main_logger.info(f"Worker output: {message}")
-        except (TimeoutError, OSError):
+        except (queue.Empty, OSError):
             break
 
 
@@ -129,12 +130,17 @@ def main() -> int:
         "telemetry_period": TELEMETRY_PERIOD,
     }
     # Just set a timer to stop the worker after a while, since the worker infinite loops
-    threading.Timer(TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS, stop, (args,)).start()
+    threading.Timer(TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS, stop, (controller,)).start()
 
     # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(args, main_logger)).start()
+    threading.Thread(target=read_queue, args=(output_queue_wrapper, controller, main_logger)).start()
 
-    telemetry_worker.telemetry_worker(connection=connection, args=args)
+    telemetry_worker.telemetry_worker(
+        connection=connection,
+        args={},
+        output_queue=output_queue_wrapper,
+        controller=controller,
+    )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

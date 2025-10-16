@@ -9,6 +9,8 @@ from pymavlink import mavutil
 
 from . import telemetry
 from ..common.modules.logger import logger
+from utilities.workers import queue_proxy_wrapper
+from utilities.workers import worker_controller
 
 
 # =================================================================================================
@@ -17,6 +19,8 @@ from ..common.modules.logger import logger
 def telemetry_worker(
     connection: mavutil.mavfile,
     args: dict,  # Place your own arguments here
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
     # Add other necessary worker arguments here
 ) -> None:
     """
@@ -45,16 +49,15 @@ def telemetry_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (telemetry.Telemetry)
-    result, telemetry_obj = telemetry.Telemetry.create(connection, local_logger, args)
+    result, telemetry_obj = telemetry.Telemetry.create(connection, local_logger)
     if not result:
         local_logger.error("Failed to create Telemetry")
         return
     # Main loop: do work.
-    controller = args["controller"]
     while not controller.is_exit_requested():
-        telemetry_data = telemetry_obj.run(args)
+        telemetry_data = telemetry_obj.run()
         if telemetry_data:
-            args["output_queue"].put(telemetry_data)
+            output_queue.queue.put(telemetry_data)
 
 
 # =================================================================================================

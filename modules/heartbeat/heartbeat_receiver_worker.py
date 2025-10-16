@@ -8,6 +8,8 @@ import time
 
 from pymavlink import mavutil
 
+from utilities.workers import queue_proxy_wrapper
+from utilities.workers import worker_controller
 from . import heartbeat_receiver
 from ..common.modules.logger import logger
 
@@ -17,7 +19,9 @@ from ..common.modules.logger import logger
 # =================================================================================================
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
-    args: dict,  # Place your own arguments here
+    heartbeat_period: float,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
     # Add other necessary worker arguments here
 ) -> None:
     """
@@ -47,20 +51,18 @@ def heartbeat_receiver_worker(
     # =============================================================================================
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
     result, heartbeat_receiver_obj = heartbeat_receiver.HeartbeatReceiver.create(
-        connection, local_logger, args
+        connection, local_logger
     )
     if not result:
         local_logger.error("Failed to create HeartbeatReceiver")
         return
 
     # Main loop: do work.
-    controller = args["controller"]
-    heartbeat_period = args["heartbeat_period"]
     local_logger.info("Starting heartbeat receiving loop")
     while not controller.is_exit_requested():
         local_logger.info("Attempting to receive heartbeat")
         try:
-            working = heartbeat_receiver_obj.run(args)
+            working = heartbeat_receiver_obj.run(output_queue)
             if not working:
                 local_logger.error("Failed to receive heartbeat")
         except (ConnectionError, OSError, ValueError) as e:

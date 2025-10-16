@@ -1,2 +1,0 @@
-23:48:09: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/command_drone.py | main | 45] Logger initialized
-23:48:09: [ERROR] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/command_drone.py | main | 64] Altitude target is not the desired value: 0.0

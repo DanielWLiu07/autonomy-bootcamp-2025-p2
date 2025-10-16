@@ -93,8 +93,6 @@ def main() -> int:
     # Create queues
     heartbeat_report_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager)
     telemetry_report_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager)
-    command_input_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager)
-    command_request_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager)
     command_output_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager)
 
     # Create worker properties for each worker type (what inputs it takes, how many workers)
@@ -150,14 +148,12 @@ def main() -> int:
         work_arguments=(
             connection,
             TARGET_POSITION,
-            {
-                "height_tolerance": HEIGHT_TOLERANCE,
-                "z_speed": Z_SPEED,
-                "angle_tolerance": ANGLE_TOLERANCE,
-                "turning_speed": TURNING_SPEED,
-            },
+            HEIGHT_TOLERANCE,
+            Z_SPEED,
+            ANGLE_TOLERANCE,
+            TURNING_SPEED,
         ),
-        input_queues=[command_request_queue],
+        input_queues=[telemetry_report_queue],
         output_queues=[command_output_queue],
         controller=controller,
         local_logger=main_logger,
@@ -247,14 +243,6 @@ def main() -> int:
             except queue.Empty:
                 pass
 
-            if int(time.time() - start_time) % 10 == 0:  # Every 10 seconds
-                try:
-                    test_command = {"type": "test", "data": f"command at {time.time()}"}
-                    command_request_queue.queue.put_nowait(test_command)
-                    main_logger.info(f"Sent command: {test_command}")
-                except queue.Full:
-                    main_logger.warning("Command queue is full")
-
             time.sleep(MAIN_LOOP_SLEEP)
 
     except KeyboardInterrupt:
@@ -267,8 +255,6 @@ def main() -> int:
 
     # Fill and drain queues from END TO START
     command_output_queue.fill_and_drain_queue()
-    command_request_queue.fill_and_drain_queue()
-    command_input_queue.fill_and_drain_queue()
     telemetry_report_queue.fill_and_drain_queue()
     heartbeat_report_queue.fill_and_drain_queue()
 

@@ -1,3 +1,30 @@
-23:48:09: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
-23:48:09: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | main | 135] Connected!
-23:48:25: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | put_queue | 92] Put Queue
+14:01:26: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
+14:01:26: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | main | 137] Connected!
+14:01:26: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_ALTITUDE: 1.00
+14:01:27: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_ALTITUDE: -1.00
+14:01:30: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 63.43
+14:01:30: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 90.00
+14:01:31: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 116.57
+14:01:31: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 45.00
+14:01:32: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 63.43
+14:01:32: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 90.00
+14:01:33: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 26.57
+14:01:33: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 45.00
+14:01:34: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 90.00
+14:01:34: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 45.00
+14:01:35: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 90.00
+14:01:35: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: 135.00
+14:01:36: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -26.57
+14:01:36: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -45.00
+14:01:37: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -90.00
+14:01:37: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -45.00
+14:01:38: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -90.00
+14:01:38: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -135.00
+14:01:39: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -63.43
+14:01:39: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -90.00
+14:01:40: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -116.57
+14:01:40: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -45.00
+14:01:41: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -63.43
+14:01:41: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 77] CHANGE_YAW: -90.00
+14:01:42: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | put_queue | 96] Put Queue
+14:01:42: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_command.py | read_queue | 81] Read Queue

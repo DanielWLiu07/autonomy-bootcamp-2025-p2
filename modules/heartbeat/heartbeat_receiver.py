@@ -22,13 +22,13 @@ class HeartbeatReceiver:
         cls,
         connection: mavutil.mavfile,
         local_logger: logger.Logger,
-        args: dict,  # Put your own arguments here
-    ) -> tuple[bool, "HeartbeatReceiver" | None]:
+        # Put your own arguments here
+    ) -> tuple[bool, "HeartbeatReceiver"]:
         """
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
         try:
-            receiver = cls(cls.__private_key, connection, local_logger, args)
+            receiver = cls(cls.__private_key, connection, local_logger)
             return True, receiver
         except (ConnectionError, ValueError, TypeError) as e:
             local_logger.error(f"Failed to create HeartbeatReceiver: {e}", True)
@@ -39,7 +39,6 @@ class HeartbeatReceiver:
         key: object,
         connection: mavutil.mavfile,
         local_logger: logger.Logger,
-        args: dict,  # pylint: disable=unused-argument
     ) -> None:
         assert key is HeartbeatReceiver.__private_key, "Use create() method"
 
@@ -50,7 +49,8 @@ class HeartbeatReceiver:
 
     def run(
         self,
-        args: dict,  # Put your own arguments here
+        output_queue,  # Put your own arguments here
+        disconnect_threshold: int = 5,
     ) -> bool:
         """
         Attempt to recieve a heartbeat message.
@@ -67,15 +67,14 @@ class HeartbeatReceiver:
                 self.logger.warning(
                     f"No heartbeat received, consecutive failures: {self.consecutive_failures}"
                 )
-            threshold = args.get("disconnect_threshold", 5)
-            if self.consecutive_failures < threshold:
+            if self.consecutive_failures < disconnect_threshold:
                 state = "Connected"
             else:
                 state = "Disconnected"
                 self.logger.error("Connection considered disconnected")
-            args["output_queue"].put(state)
+            output_queue.queue.put(state)
 
-            return self.consecutive_failures <= args.get("disconnect_threshold", 5)
+            return self.consecutive_failures <= disconnect_threshold
         except (ConnectionError, TimeoutError) as e:
             self.logger.error(f"Error receiving heartbeat: {e}")
             return False

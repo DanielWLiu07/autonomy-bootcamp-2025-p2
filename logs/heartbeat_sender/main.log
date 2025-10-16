@@ -1,2 +1,2 @@
-23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
-23:10:14: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_heartbeat_sender.py | main | 88] Connected!
+13:56:28: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
+13:56:28: [INFO] [/Users/danielwliu/Dev/projects/2025/autonomy-bootcamp-2025-p2/tests/integration/test_heartbeat_sender.py | main | 87] Connected!

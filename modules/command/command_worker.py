@@ -4,11 +4,14 @@ Command worker to make decisions based on Telemetry Data.
 
 import os
 import pathlib
+import queue
 
 from pymavlink import mavutil
 
 from . import command
 from ..common.modules.logger import logger
+from utilities.workers import queue_proxy_wrapper
+from utilities.workers import worker_controller
 
 
 # =================================================================================================
@@ -17,7 +20,13 @@ from ..common.modules.logger import logger
 def command_worker(
     connection: mavutil.mavfile,
     target: command.Position,
-    args: dict,  # Place your own arguments here
+    height_tolerance: float,
+    z_speed: float,
+    angle_tolerance: float,
+    turning_speed: float,
+    input_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
     # Add other necessary worker arguments here
 ) -> None:
     """
@@ -46,20 +55,19 @@ def command_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (command.Command)
-    result, command_obj = command.Command.create(connection, target, local_logger, args)
+    result, command_obj = command.Command.create(connection, target, local_logger, height_tolerance, z_speed, angle_tolerance, turning_speed)
     if not result:
         local_logger.error("Failed to create Command")
         return
 
     # Main loop: do work.
-    controller = args["controller"]
     while not controller.is_exit_requested():
         try:
-            telemetry_data = args["input_queue"].get(timeout=1)
-            messages = command_obj.run(telemetry_data, args)
-            for message in messages:
-                args["output_queue"].put(message)
-        except (ConnectionError, OSError, ValueError, TimeoutError) as e:
+            command_data = input_queue.queue.get(timeout=1)
+            message = command_obj.run(command_data)
+            if message:
+                output_queue.queue.put(message)
+        except (ConnectionError, OSError, ValueError, queue.Empty) as e:
             local_logger.error(f"Error in worker loop: {e}")
         except KeyboardInterrupt:
             continue
