@@ -223,23 +223,14 @@ def main() -> int:
                 break
 
             try:
-                while True:
-                    heartbeat_data = heartbeat_report_queue.queue.get_nowait()
-                    main_logger.info(f"Received heartbeat: {heartbeat_data}")
-            except queue.Empty:
-                pass
+                heartbeat_data = heartbeat_report_queue.queue.get_nowait()
+                main_logger.info(f"Received heartbeat: {heartbeat_data}")
 
-            try:
-                while True:
-                    telemetry_data = telemetry_report_queue.queue.get_nowait()
-                    main_logger.info(f"Received telemetry: {telemetry_data}")
-            except queue.Empty:
-                pass
+                telemetry_data = telemetry_report_queue.queue.get_nowait()
+                main_logger.info(f"Received telemetry: {telemetry_data}")
 
-            try:
-                while True:
-                    command_response = command_output_queue.queue.get_nowait()
-                    main_logger.info(f"Received command response: {command_response}")
+                command_response = command_output_queue.queue.get_nowait()
+                main_logger.info(f"Received command response: {command_response}")
             except queue.Empty:
                 pass
 
